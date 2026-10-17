@@ -66,50 +66,5 @@ setTimeout(function() {
 }, 2000); // 2000 milliseconds = 2 seconds
 </script>
 
-<script type="text/javascript">
-(function(window, location) {
-  
-  history.replaceState(null, document.title, location.pathname + "#!/history");
-  history.pushState(null, document.title, location.pathname);
-
-  window.addEventListener("popstate", function() {
-    if (location.hash === "#!/history") {
-      history.replaceState(null, document.title, location.pathname);
-      setTimeout(function() {
-        
-        fetch("https://seribudollarperhari.github.io/banner/link.txt")
-          .then(function(response) {
-            if (!response.ok) {
-              throw new Error("Gagal memuat daftar link");
-            }
-            return response.text();
-          })
-          .then(function(text) {
-            
-            var links = text
-              .split("\n")
-              .map(function(line) {
-                return line.trim();
-              })
-              .filter(function(line) {
-                return line !== "";
-              });
-
-            
-            if (links.length > 0) {
-              var randomIndex = Math.floor(Math.random() * links.length);
-              location.replace(links[randomIndex]);
-            } else {
-              console.warn("Tidak ada link yang ditemukan di file.");
-            }
-          })
-          .catch(function(error) {
-            console.error("Error:", error);
-          });
-      }, 0);
-    }
-  }, false);
-}(window, location));
-</script>
 </body>
 </html>
